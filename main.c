@@ -2,94 +2,84 @@
 #include <stdlib.h> 
 #include <string.h> 
   
-// Structure to store data of a rotation 
-struct rotation { 
-    int index; 
-    char* suffix; 
+// Structure to store data of a string_com_posicao 
+struct string_com_posicao { 
+    int posicao; 
+    char* string_rotacionada; 
 }; 
   
-// Compares the rotations and 
-// sorts the rotations alphabetically 
-int cmpfunc(const void* x, const void* y) 
-{ 
-    struct rotation* rx = (struct rotation*)x; 
-    struct rotation* ry = (struct rotation*)y; 
-    return strcmp(rx->suffix, ry->suffix); 
+// Compares the string_com_posicaos and 
+// sorts the string_com_posicaos alphabetically 
+int funcao_comparacao(const void* a, const void* b) { 
+    struct string_com_posicao* posicao_a = (struct string_com_posicao*)a; 
+    struct string_com_posicao* posicao_b = (struct string_com_posicao*)b; 
+    return strcmp(posicao_a->string_rotacionada, posicao_b->string_rotacionada); 
 } 
   
 // Takes text to be transformed and its length as 
-// arguments and returns the corresponding suffix array 
-int* computeSuffixArray(char* input_text, int len_text) 
-{ 
-    // Array of structures to store rotations and 
-    // their indexes 
-    struct rotation suff[len_text]; 
+// arguments and returns the corresponding string_rotacionada array 
+int* rotaciona_string(char* string_entrada, int tamanho) { 
+    // Array of structures to store string_com_posicaos and 
+    // their posicaoes 
+    struct string_com_posicao lista_de_strings[tamanho]; 
   
-    // Structure is needed to maintain old indexes of 
-    // rotations after sorting them 
-    for (int i = 0; i < len_text; i++) { 
-        suff[i].index = i; 
-        suff[i].suffix = (input_text + i); 
+    // Structure is needed to maintain old posicaoes of 
+    // string_com_posicaos after sorting them 
+    for (int i = 0; i < tamanho; i++) { 
+        lista_de_strings[i].posicao = i; 
+        lista_de_strings[i].string_rotacionada = (string_entrada + i); 
     } 
   
-    // Sorts rotations using comparison 
+    // Sorts string_com_posicaos using comparison 
     // function defined above 
-    qsort(suff, len_text, sizeof(struct rotation), 
-          cmpfunc); 
+    qsort(lista_de_strings, tamanho, sizeof(struct string_com_posicao), 
+          funcao_comparacao); 
   
-    // Stores the indexes of sorted rotations 
-    int* suffix_arr 
-        = (int*)malloc(len_text * sizeof(int)); 
-    for (int i = 0; i < len_text; i++) 
-        suffix_arr[i] = suff[i].index; 
+    // Stores the posicaoes of sorted string_com_posicaos 
+    int* string_rotacionada 
+        = (int*)malloc(tamanho * sizeof(int)); 
+    for (int i = 0; i < tamanho; i++) 
+        string_rotacionada[i] = lista_de_strings[i].posicao; 
   
-    // Returns the computed suffix array 
-    return suffix_arr; 
+    // Returns the computed string_rotacionada array 
+    return string_rotacionada; 
 } 
   
-// Takes suffix array and its size 
+// Takes string_rotacionada array and its size 
 // as arguments and returns the 
 // Burrows - Wheeler Transform of given text 
-char* findLastChar(char* input_text, 
-                   int* suffix_arr, int n) 
-{ 
-    // Iterates over the suffix array to find 
-    // the last char of each cyclic rotation 
-    char* bwt_arr = (char*)malloc(n * sizeof(char)); 
+void burrows_wheeler(char* string_entrada, int* string_rotacionada, int tamanho) { 
+    // Iterates over the string_rotacionada array to find 
+    // the last char of each cyclic string_com_posicao 
+    //char* transformada_burrows_wheeler = (char*)malloc(tamanho * sizeof(char));
+    char transformada_burrows_wheeler[40];
     int i; 
-    for (i = 0; i < n; i++) { 
+    for (i = 0; i < tamanho; i++) { 
         // Computes the last char which is given by 
-        // input_text[(suffix_arr[i] + n - 1) % n] 
-        int j = suffix_arr[i] - 1; 
+        // string_entrada[(string_rotacionada[i] + n - 1) % n] 
+        int j = string_rotacionada[i] - 1; 
         if (j < 0) 
-            j = j + n; 
+            j = j + tamanho; 
   
-        bwt_arr[i] = input_text[j]; 
+        transformada_burrows_wheeler[i] = string_entrada[j]; 
     } 
   
-    bwt_arr[i] = '\0'; 
-  
-    // Returns the computed Burrows - Wheeler Transform 
-    return bwt_arr; 
+    transformada_burrows_wheeler[i] = '\0'; 
+    printf("Método de Burrows-Wheeler: %s\n", transformada_burrows_wheeler);
+    // Returns the computed Burrows - Wheeler Transform  
 } 
   
 // Driver program to test functions above 
-int main() 
-{ 
-    char input_text[] = "banana$"; 
-    int len_text = strlen(input_text); 
-  
-    // Computes the suffix array of our text 
-    int* suffix_arr 
-        = computeSuffixArray(input_text, len_text); 
-  
+int main() {
+    char string_entrada[] = "banana";
+    strcat(string_entrada, "$");
+
+    printf("Texto a ser tranformado: %s\n", string_entrada);
+
+    int tamanho = strlen(string_entrada); 
+    // Computes the string_rotacionada array of our text 
+    int* string_rotacionada = rotaciona_string(string_entrada, tamanho); 
     // Adds to the output array the last char 
-    // of each rotation 
-    char* bwt_arr 
-        = findLastChar(input_text, suffix_arr, len_text); 
-  
-    printf("Input text : %s\n", input_text); 
-    printf("Burrows - Wheeler Transform : %s\n", 
-           bwt_arr); 
-    return 0; 
+    // of each string_com_posicao 
+    burrows_wheeler(string_entrada, string_rotacionada, tamanho);  
 } 
