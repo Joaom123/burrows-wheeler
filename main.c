@@ -48,7 +48,12 @@ int* rotaciona_string(char* string_entrada, int tamanho) {
 // Takes string_rotacionada array and its size 
 // as arguments and returns the 
 // Burrows - Wheeler Transform of given text 
-void burrows_wheeler(char* string_entrada, int* string_rotacionada, int tamanho) { 
+void burrows_wheeler(char* string_entrada) {
+	printf("Texto a ser tranformado: %s\n", string_entrada);
+
+    int tamanho = strlen(string_entrada); 
+    // Computes the string_rotacionada array of our text 
+    int* string_rotacionada = rotaciona_string(string_entrada, tamanho);  
     // Iterates over the string_rotacionada array to find 
     // the last char of each cyclic string_com_posicao 
     //char* transformada_burrows_wheeler = (char*)malloc(tamanho * sizeof(char));
@@ -71,15 +76,10 @@ void burrows_wheeler(char* string_entrada, int* string_rotacionada, int tamanho)
   
 // Driver program to test functions above 
 int main() {
-    char string_entrada[] = "banana";
+    char string_entrada[45];
+    scanf("%s", string_entrada);
     strcat(string_entrada, "$");
-
-    printf("Texto a ser tranformado: %s\n", string_entrada);
-
-    int tamanho = strlen(string_entrada); 
-    // Computes the string_rotacionada array of our text 
-    int* string_rotacionada = rotaciona_string(string_entrada, tamanho); 
     // Adds to the output array the last char 
     // of each string_com_posicao 
-    burrows_wheeler(string_entrada, string_rotacionada, tamanho);  
+    burrows_wheeler(string_entrada);
 } 
