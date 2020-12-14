@@ -29,7 +29,7 @@ Desta nova matriz, a última coluna pode ser facilmente comprimida por técnicas
 #include <stdlib.h> 
 #include <string.h> 
 
-// Struct definida para guardar as informações de índice e texto rotacionado 
+// Struct definida para guardar as informações do índice (posição) e texto rotacionado (string_rotacionada)
 struct string_com_posicao { 
     int posicao; 
     char* string_rotacionada; 
@@ -93,13 +93,15 @@ char* burrows_wheeler(char* string_entrada) {
 } 
   
 int main() {
-	// Realiza a leitura da entrada
-    char string_entrada[45];
-    scanf("%[^\n]", string_entrada);
+    // Inicializa entrada
+    char entrada[45];
+	
+    // Realiza a leitura da entrada
+    scanf("%[^\n]", entrada);
     
-    printf("Texto a ser tranformado: %s\n", string_entrada);
+    printf("Texto a ser tranformado: %s\n", entrada);
     // Chama o BWT, passando a entrada como parâmetro
-    char* string_saida = burrows_wheeler(string_entrada);
+    char* saida = burrows_wheeler(entrada);
     // Mostra o resultado da transformada
-    printf("Método de Burrows-Wheeler: %s\n", string_saida);
+    printf("Método de Burrows-Wheeler: %s\n", saida);
 } 
