@@ -44,22 +44,22 @@ int funcao_comparacao(const void* a, const void* b) {
 } 
   
 // Realiza o ciclo de rotações da string informada 
-int* rotaciona_string(char* string_entrada, int tamanho) { 
+int* rotaciona_string(char* string_entrada, int tamanho_da_entrada) { 
     // Vetor que armazenará cada linha rotacionada da string e suas posições originais 
-    struct string_com_posicao lista_de_strings[tamanho]; 
+    struct string_com_posicao lista_de_strings[tamanho_da_entrada]; 
   
     // Preence o vetor string_com_posicao com as linhas rotacionadas 
-    for (int i = 0; i < tamanho; i++) { 
+    for (int i = 0; i < tamanho_da_entrada; i++) { 
         lista_de_strings[i].posicao = i; 
         lista_de_strings[i].string_rotacionada = (string_entrada + i); 
     } 
   
     // Coloca os textos de string_com_posicaos em ordem alfabética 
-    qsort(lista_de_strings, tamanho, sizeof(struct string_com_posicao), funcao_comparacao); 
+    qsort(lista_de_strings, tamanho_da_entrada, sizeof(struct string_com_posicao), funcao_comparacao); 
   
     // Salva as posições ordenadas da lista rotacionada 
-    int string_rotacionada[tamanho] = NULL; 
-    for (int i = 0; i < tamanho; i++) { 
+    int *string_rotacionada = (int *)malloc(tamanho_da_entrada*sizeof(int)); 
+    for (int i = 0; i < tamanho_da_entrada; i++) { 
         string_rotacionada[i] = lista_de_strings[i].posicao; 
   	}
    
@@ -68,20 +68,21 @@ int* rotaciona_string(char* string_entrada, int tamanho) {
 
 // Método de Burrows - Wheeler
 char* burrows_wheeler(char* string_entrada) {
-    int tamanho = strlen(string_entrada); 
+    // Guarda o tamanho da entrada
+    int tamanho_da_entrada = strlen(string_entrada); 
 
     // Realiza as rotações da string original
-    int* string_rotacionada = rotaciona_string(string_entrada, tamanho);  
+    int* string_rotacionada = rotaciona_string(string_entrada, tamanho_da_entrada);  
 
     // Vetor a ser preenchido com a última coluna da rotação 
-    char transformada_burrows_wheeler[tamanho] = NULL;
+    char *transformada_burrows_wheeler = (char *)malloc(tamanho_da_entrada*sizeof(char));
 
     // Preenche o vetor anterior com o último caractere de cada rotação
     int i; 
-    for (i = 0; i < tamanho; i++) {   
-        int j = string_rotacionada[i] - 1; 
+    for (i = 0; i < tamanho_da_entrada; i++) {   
+        int j = string_rotacionada[i] - 1;
         if (j < 0) {
-            j = j + tamanho; 
+            j = j + tamanho_da_entrada; 
         }
         transformada_burrows_wheeler[i] = string_entrada[j]; 
     } 
@@ -93,14 +94,15 @@ char* burrows_wheeler(char* string_entrada) {
   
 int main() {
 	// Realiza a leitura da entrada
-    char string_entrada[45];
-    scanf("%[^\n]", string_entrada);
+    // char string_entrada[45];
+    // scanf("%[^\n]", string_entrada);
     // A tranformada de burrows-wheeler também funciona sem o $, porém concatemos a string original
     // devido ao nosso meio de validação, que realiza a transformada inversa utilizando o ‘$’ como EOF.
-    strcat(string_entrada, "$");
-    printf("Texto a ser tranformado: %s\n", string_entrada);
+    // strcpy(string_entrada, "banana");
+    // strcat(string_entrada, "$");
+    // printf("Texto a ser tranformado: %s\n", string_entrada);
     // Chama o BWT, passando a entrada como parâmetro
-    char* string_saida = burrows_wheeler(string_entrada);
+    char* string_saida = burrows_wheeler("mana cana banana");
     // Mostra o resultado da transformada
     printf("Método de Burrows-Wheeler: %s\n", string_saida);
 } 

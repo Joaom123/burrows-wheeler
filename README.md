@@ -1,1 +1,1 @@
-# burrows-wheeler
+# Transformada de Burrows-Wheeler
