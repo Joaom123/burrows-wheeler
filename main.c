@@ -58,7 +58,7 @@ int* rotaciona_string(char* string_entrada, int tamanho) {
     qsort(lista_de_strings, tamanho, sizeof(struct string_com_posicao), funcao_comparacao); 
   
     // Salva as posições ordenadas da lista rotacionada 
-    int string_rotacionada[tamanho]; 
+    int string_rotacionada[tamanho] = NULL; 
     for (int i = 0; i < tamanho; i++) { 
         string_rotacionada[i] = lista_de_strings[i].posicao; 
   	}
@@ -74,7 +74,7 @@ char* burrows_wheeler(char* string_entrada) {
     int* string_rotacionada = rotaciona_string(string_entrada, tamanho);  
 
     // Vetor a ser preenchido com a última coluna da rotação 
-    char transformada_burrows_wheeler[tamanho];
+    char transformada_burrows_wheeler[tamanho] = NULL;
 
     // Preenche o vetor anterior com o último caractere de cada rotação
     int i; 
