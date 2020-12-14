@@ -65,6 +65,7 @@ int* rotaciona_string(char* string_entrada, int tamanho_da_entrada) {
         string_rotacionada[i] = lista_de_strings[i].posicao; 
   	}
 
+    // Marca o final da string
     string_rotacionada[tamanho_da_entrada] = '\0';
    
     return string_rotacionada; 
@@ -83,8 +84,7 @@ char* burrows_wheeler(char* string_entrada) {
     static char transformada_burrows_wheeler[1000];
 
     // Preenche o vetor anterior com o último caractere de cada rotação
-    int i; 
-    for (i = 0; i < tamanho_da_entrada; i++) {   
+    for (int i = 0; i < tamanho_da_entrada; i++) {   
         int j = string_rotacionada[i] - 1;
         if (j < 0) {
             j = j + tamanho_da_entrada; 
@@ -92,7 +92,9 @@ char* burrows_wheeler(char* string_entrada) {
         transformada_burrows_wheeler[i] = string_entrada[j]; 
     } 
   
-    transformada_burrows_wheeler[i] = '\0'; 
+    // Marca o final da string
+    transformada_burrows_wheeler[tamanho_da_entrada] = '\0'; 
+
     // Retorna o resultado da transformada de Burrows-Wheeler 
     return transformada_burrows_wheeler; 
 } 
