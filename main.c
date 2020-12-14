@@ -99,6 +99,10 @@ int main() {
     // Realiza a leitura da entrada
     scanf("%[^\n]", entrada);
     
+    // A tranformada de burrows-wheeler também funciona sem o $, porém concatemos a string original
+    // devido ao nosso meio de validação, que realiza a transformada inversa utilizando o ‘$’ como EOF.
+    strcat(entrada, "$");
+    
     printf("Texto a ser tranformado: %s\n", entrada);
     // Chama o BWT, passando a entrada como parâmetro
     char* saida = burrows_wheeler(entrada);
