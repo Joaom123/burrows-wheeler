@@ -94,15 +94,12 @@ char* burrows_wheeler(char* string_entrada) {
   
 int main() {
 	// Realiza a leitura da entrada
-    // char string_entrada[45];
-    // scanf("%[^\n]", string_entrada);
-    // A tranformada de burrows-wheeler também funciona sem o $, porém concatemos a string original
-    // devido ao nosso meio de validação, que realiza a transformada inversa utilizando o ‘$’ como EOF.
-    // strcpy(string_entrada, "banana");
-    // strcat(string_entrada, "$");
-    // printf("Texto a ser tranformado: %s\n", string_entrada);
+    char string_entrada[45];
+    scanf("%[^\n]", string_entrada);
+    
+    printf("Texto a ser tranformado: %s\n", string_entrada);
     // Chama o BWT, passando a entrada como parâmetro
-    char* string_saida = burrows_wheeler("mana cana banana");
+    char* string_saida = burrows_wheeler(string_entrada);
     // Mostra o resultado da transformada
     printf("Método de Burrows-Wheeler: %s\n", string_saida);
 } 
