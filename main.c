@@ -101,6 +101,7 @@ char* burrows_wheeler(char* string_entrada) {
 int main() {
 	// Realiza a leitura da entrada
     char string_entrada[45];
+    printf("Digite um texto de no máximo 44 caracteres: ");
     scanf("%[^\n]", string_entrada);
     // A tranformada de burrows-wheeler também funciona sem o $, porém concatemos a string original
     // devido ao nosso meio de validação, que realiza a transformada inversa utilizando o ‘$’ como EOF.
