@@ -29,10 +29,30 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Struct definida para guardar as informações do índice (posição) e texto rotacionado (string_rotacionada)
+// Função que desloca a string em x posições
+char* desloca_posicao(char* string, int quantidade)
+{
+  //vetor temporário que armazena o deslocamentos
+  static char tmp[10] = "";
+  // string de copia para não afetar a original
+  static char copia[10] = "";
+  strcpy(copia, string);
+  strcpy(tmp, strdup(copia));
+  int len = strlen(copia);
+  if (quantidade < 0)
+    quantidade = len + (quantidade % len);
+  for (int i = 0; copia[i] != 0; i++) {
+    int new_idx = (i + quantidade) % len;
+    tmp[new_idx] = copia[i];
+  }
+  memcpy(copia, tmp, len);
+  return tmp;
+}
+
+// Struct definida para guardar as informações de índice e texto rotacionado
 struct string_com_posicao {
   int posicao;
-  char* string_rotacionada;
+  char string_rotacionada[10];
 };
 
 // Função de comparação para ordenar as string em ordem alfabética
@@ -44,71 +64,43 @@ int funcao_comparacao(const void* a, const void* b) {
 }
 
 // Realiza o ciclo de rotações da string informada
-int* rotaciona_string(char* string_entrada, int tamanho_da_entrada) {
+char* transforma_string(char* string_entrada, int tamanho) {
   // Vetor que armazenará cada linha rotacionada da string e suas posições originais
-  struct string_com_posicao lista_de_strings[tamanho_da_entrada];
+  // Espaço alocado de 2025 chars, pois é um vetor de string, ou seja,
+  // Cada string contem 45 chars, e o vetor possui 45 strings.
+  struct string_com_posicao lista_de_strings[10];
 
   // Preence o vetor string_com_posicao com as linhas rotacionadas
-  for (int i = 0; i < tamanho_da_entrada; i++) {
+  for (int i = 0; i < tamanho; i++) {
     lista_de_strings[i].posicao = i;
-    lista_de_strings[i].string_rotacionada = (string_entrada + i);
+    strcpy(lista_de_strings[i].string_rotacionada, desloca_posicao(string_entrada, -i));
   }
 
   // Coloca os textos de string_com_posicaos em ordem alfabética
-  qsort(lista_de_strings, tamanho_da_entrada, sizeof(struct string_com_posicao), funcao_comparacao);
+  qsort(lista_de_strings, tamanho, sizeof(struct string_com_posicao), funcao_comparacao);
 
   // Salva as posições ordenadas da lista rotacionada
-  // int *string_rotacionada = (int *)malloc(tamanho_da_entrada*sizeof(int));
-  static int string_rotacionada[100];
-
-  for (int i = 0; i < tamanho_da_entrada; i++) {
-    string_rotacionada[i] = lista_de_strings[i].posicao;
+  static char string_rotacionada[10];
+  for (int i = 0; i < tamanho; i++) {
+    string_rotacionada[i] = lista_de_strings[i].string_rotacionada[tamanho - 1];
   }
-
-  // Marca o final da string
-  string_rotacionada[tamanho_da_entrada] = '\0';
 
   return string_rotacionada;
 }
 
 // Método de Burrows - Wheeler
 char* burrows_wheeler(char* string_entrada) {
-  // Guarda o tamanho da entrada
-  int tamanho_da_entrada = strlen(string_entrada);
+  int tamanho = strlen(string_entrada);
 
   // Realiza as rotações da string original
-  int* string_rotacionada = rotaciona_string(string_entrada, tamanho_da_entrada);
+  char* transformada_burrows_wheeler = transforma_string(string_entrada, tamanho);
 
-  // Vetor a ser preenchido com a última coluna da rotação
-  // char *transformada_burrows_wheeler = (char *)malloc(tamanho_da_entrada*sizeof(char));
-  static char transformada_burrows_wheeler[100];
-
-  // Preenche o vetor anterior com o último caractere de cada rotação
-  for (int i = 0; i < tamanho_da_entrada; i++) {
-    int j = string_rotacionada[i] - 1;
-    if (j < 0) {
-      j = j + tamanho_da_entrada;
-    }
-    transformada_burrows_wheeler[i] = string_entrada[j];
-  }
-
-  // Marca o final da string
-  transformada_burrows_wheeler[tamanho_da_entrada] = '\0';
-
-  // Retorna o resultado da transformada de Burrows-Wheeler
   return transformada_burrows_wheeler;
 }
 
-
-// A tranformada de burrows-wheeler também funciona sem o $, porém concatemos a string original
-// devido ao nosso meio de validação, que realiza a transformada inversa utilizando o ‘$’ como EOF.
-  
-// Chama o BWT, passando a entrada como parâmetro
-// Mostra o resultado da transformada
-
 //TODO: Alterar para alocação dinâmica
-char entrada[8];
-char *saida;
+char entrada[10];
+char* saida;
 const char *entradaPonteiro;
 
 void setup() {
@@ -125,6 +117,7 @@ void loop() {
 
     strcpy(entrada, entradaPonteiro); // transforma char * para char []
     strcat(entrada, "$"); // adiciona $ ao final da string entrada
+
     saida = burrows_wheeler(entrada);
 
     Serial.print("Método de Burrows-Wheeler: ");
