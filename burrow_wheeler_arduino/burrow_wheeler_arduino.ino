@@ -129,9 +129,7 @@ void loop() {
     Serial.print("Método de Burrows-Wheeler: ");
     Serial.println(saida);
 
-
     //TODO: Imprimir o tempo gasto pela transformada
   }
-
 
 }
