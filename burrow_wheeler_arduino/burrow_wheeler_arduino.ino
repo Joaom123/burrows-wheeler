@@ -18,6 +18,12 @@
   --  Motivo: Trabalho da disciplina de
       Sistemas Embarcados 2020.2, Professor: Elias Teodoro
   -------------------------------------------------------------
+  --  #3.
+  --  Date: Jan, 5, 2021
+  --  Author: Elysson Gabriel e João Marcus
+  --  Motivo: Trabalho da disciplina de
+      Sistemas Embarcados 2020.2, Professor: Elias Teodoro
+  -------------------------------------------------------------
 **/
 /**
   A transformada de Burrows-Wheeler constrói uma matriz n x n onde n é o tamanho do vetor que será comprimido.
