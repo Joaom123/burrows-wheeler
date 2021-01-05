@@ -31,9 +31,6 @@
   na terceira linha com o vetor rotacionado de 2 posições, e assim por diante, até termos na última linha o vetor rotacionado de n-1 posições.
   Desta nova matriz, a última coluna pode ser facilmente comprimida por técnicas de move-to-front.
  **/
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 // Função que desloca a string em x posições
 char* desloca_posicao(char* string, int quantidade)
