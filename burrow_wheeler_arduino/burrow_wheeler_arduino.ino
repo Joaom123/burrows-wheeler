@@ -104,6 +104,8 @@ char* burrows_wheeler(char* string_entrada) {
 char entrada[35];
 char* saida;
 const char *entradaPonteiro;
+unsigned long tempoAntesDaTransformada;
+unsigned long tempoDepoisDaTransformada;
 
 void setup() {
   Serial.begin(9600);
@@ -120,10 +122,16 @@ void loop() {
     strcpy(entrada, entradaPonteiro); // transforma char * para char []
     strcat(entrada, "$"); // adiciona $ ao final da string entrada
 
+    tempoAntesDaTransformada = millis();
     saida = burrows_wheeler(entrada);
+    tempoDepoisDaTransformada = millis();
 
     Serial.print("Método de Burrows-Wheeler: ");
     Serial.println(saida);
+
+    Serial.print("O tempo gasto pela transformada foi: ");
+    Serial.print(tempoDepoisDaTransformada - tempoAntesDaTransformada);
+    Serial.println(" ms");
 
     //TODO: Imprimir o tempo gasto pela transformada
   }
