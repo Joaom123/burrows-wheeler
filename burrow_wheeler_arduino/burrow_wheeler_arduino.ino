@@ -69,8 +69,8 @@ int funcao_comparacao(const void* a, const void* b) {
 // Realiza o ciclo de rotações da string informada
 char* transforma_string(char* string_entrada, int tamanho) {
   // Vetor que armazenará cada linha rotacionada da string e suas posições originais
-  // Espaço alocado de 2025 chars, pois é um vetor de string, ou seja,
-  // Cada string contem 45 chars, e o vetor possui 45 strings.
+  // Espaço alocado de 1225 chars, pois é um vetor de string, ou seja,
+  // Cada string contem 35 chars, e o vetor possui 35 strings.
   struct string_com_posicao lista_de_strings[35];
 
   // Preence o vetor string_com_posicao com as linhas rotacionadas
@@ -132,8 +132,5 @@ void loop() {
     Serial.print("O tempo gasto pela transformada foi: ");
     Serial.print(tempoDepoisDaTransformada - tempoAntesDaTransformada);
     Serial.println(" ms");
-
-    //TODO: Imprimir o tempo gasto pela transformada
   }
-
 }
