@@ -36,9 +36,9 @@
 char* desloca_posicao(char* string, int quantidade)
 {
   //vetor temporário que armazena o deslocamentos
-  static char tmp[10] = "";
+  static char tmp[35] = "";
   // string de copia para não afetar a original
-  static char copia[10] = "";
+  static char copia[35] = "";
   strcpy(copia, string);
   strcpy(tmp, strdup(copia));
   int len = strlen(copia);
@@ -55,7 +55,7 @@ char* desloca_posicao(char* string, int quantidade)
 // Struct definida para guardar as informações de índice e texto rotacionado
 struct string_com_posicao {
   int posicao;
-  char string_rotacionada[10];
+  char string_rotacionada[35];
 };
 
 // Função de comparação para ordenar as string em ordem alfabética
@@ -71,7 +71,7 @@ char* transforma_string(char* string_entrada, int tamanho) {
   // Vetor que armazenará cada linha rotacionada da string e suas posições originais
   // Espaço alocado de 2025 chars, pois é um vetor de string, ou seja,
   // Cada string contem 45 chars, e o vetor possui 45 strings.
-  struct string_com_posicao lista_de_strings[10];
+  struct string_com_posicao lista_de_strings[35];
 
   // Preence o vetor string_com_posicao com as linhas rotacionadas
   for (int i = 0; i < tamanho; i++) {
@@ -83,7 +83,7 @@ char* transforma_string(char* string_entrada, int tamanho) {
   qsort(lista_de_strings, tamanho, sizeof(struct string_com_posicao), funcao_comparacao);
 
   // Salva as posições ordenadas da lista rotacionada
-  static char string_rotacionada[10];
+  static char string_rotacionada[35];
   for (int i = 0; i < tamanho; i++) {
     string_rotacionada[i] = lista_de_strings[i].string_rotacionada[tamanho - 1];
   }
@@ -101,8 +101,7 @@ char* burrows_wheeler(char* string_entrada) {
   return transformada_burrows_wheeler;
 }
 
-//TODO: Alterar para alocação dinâmica
-char entrada[10];
+char entrada[35];
 char* saida;
 const char *entradaPonteiro;
 
