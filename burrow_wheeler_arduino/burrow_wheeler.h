@@ -26,7 +26,7 @@
       Sistemas Embarcados 2020.2. Refatorando código para arduino uno, Professor: Elias Teodoro
   -------------------------------------------------------------
 **/
-#include "memoryFree.h" //para debug
+#include "memoryFree.h" //para debug da memória
 /**
   A transformada de Burrows-Wheeler constrói uma matriz n x n onde n é o tamanho do vetor que será comprimido.
   Esta matriz é preenchida na primeira linha com o vetor original; na segunda linha com o vetor rotacionado a esquerda de uma posição;
@@ -42,7 +42,6 @@ char* desloca_posicao(char* string, int quantidade)
   // string de copia para não afetar a original
   static char copia[37] = "";
   
-
   strcpy(copia, string);
   strcpy(tmp, strdup(copia));
 
@@ -57,9 +56,6 @@ char* desloca_posicao(char* string, int quantidade)
   }
 
   memcpy(copia, tmp, len);
-  
-  Serial.print("freeMemory()= ");
-  Serial.println(freeMemory());
   
   return tmp;
 }
@@ -105,10 +101,10 @@ char* transforma_string(char* string_entrada, int tamanho) {
 
 // Método de Burrows - Wheeler
 char* burrows_wheeler(char* string_entrada) {
-  int tamanho = strlen(string_entrada);
-
+  int tamanho_da_entrada = strlen(string_entrada);
+  Serial.println(freeMemory());
   // Realiza as rotações da string original
-  char* transformada_burrows_wheeler = transforma_string(string_entrada, tamanho);
+  char* transformada_burrows_wheeler = transforma_string(string_entrada, tamanho_da_entrada);
 
   return transformada_burrows_wheeler;
 }
