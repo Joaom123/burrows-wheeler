@@ -1,6 +1,6 @@
 #include "burrow_wheeler.h" // Algoritmo de Burrow-Wheeler
 
-char entrada[43];
+char entrada[36];
 char* saida;
 unsigned long tempoAntesDaTransformada;
 unsigned long tempoDepoisDaTransformada;
@@ -35,14 +35,14 @@ void pega_tempo_depois_da_transformada() {
 }
 
 //
-void pega_entrada_e_transforma_em_ponteiro() {
+void pega_entrada_e_transforma_string_em_array_de_char() {
   String entradaDaSerial = Serial.readString();
-  entradaDaSerial.toCharArray(entrada, 43);
+  entradaDaSerial.toCharArray(entrada, 37);
 }
 
 //
 void prepara_entrada() {
-  strcat(entrada, "$"); // adiciona $ ao final da string entrada
+  strcat(entrada, "$"); // concatena $ ao final da entrada
 }
 
 //
@@ -56,16 +56,13 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-    pega_entrada_e_transforma_em_ponteiro();
+    pega_entrada_e_transforma_string_em_array_de_char();
     //TODO: Impedir uma entradar maior que o permitido
     imprime_entrada();
-    
     prepara_entrada();
-    
     pega_tempo_antes_da_transformada();
     transformada_burrows_wheeler();
     pega_tempo_depois_da_transformada();
-    
     imprime_saida();
     calcula_e_imprime_o_tempo_gasto();
   }
