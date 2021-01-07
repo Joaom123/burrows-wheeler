@@ -1,7 +1,7 @@
 #include "burrow_wheeler.h" // Algoritmo de Burrow-Wheeler
 #define TAMANHO_MAXIMO_DA_ENTRADA 45
 
-char entrada[TAMANHO_MAXIMO_DA_ENTRADA - 1]; // retira-se um por causa do $
+char entrada[TAMANHO_MAXIMO_DA_ENTRADA + 2]; // adiciona-se 2 por causa do $ e null terminator
 char* saida;
 unsigned long tempoAntesDaTransformada;
 unsigned long tempoDepoisDaTransformada;
@@ -53,9 +53,9 @@ void transformada_burrows_wheeler() {
 
 // Imprime o texto da validação do tamanho da entrada
 void imprime_validacao_do_tamanho_da_entrada() {
-    Serial.print("O tamanho máximo de ");
-    Serial.print(TAMANHO_MAXIMO_DA_ENTRADA);
-    Serial.println(" caracteres foi atingido!");
+  Serial.print("O tamanho máximo de ");
+  Serial.print(TAMANHO_MAXIMO_DA_ENTRADA);
+  Serial.println(" caracteres foi atingido!");
 }
 
 // Retorna true quando a entrada tem mais caracteres que o permitido
@@ -70,15 +70,15 @@ void setup() {
 void loop() {
   if (Serial.available() > 0) {
     pega_entrada_e_transforma_string_em_array_de_char();
-    imprime_entrada();
     prepara_entrada();
+    imprime_entrada();
     
-    if(entrada_eh_maior_que_o_permitido()) {
+    if (entrada_eh_maior_que_o_permitido()) {
       imprime_validacao_do_tamanho_da_entrada();
       return;
     }
-    
-    Serial.println(strlen(entrada));
+
+//    Serial.println(strlen(entrada));
     pega_tempo_antes_da_transformada();
     transformada_burrows_wheeler();
     pega_tempo_depois_da_transformada();

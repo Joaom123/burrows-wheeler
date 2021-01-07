@@ -27,8 +27,8 @@ int* rotaciona_string(char* string_entrada, int tamanho_da_entrada) {
   qsort(lista_de_strings, tamanho_da_entrada, sizeof(struct string_com_posicao), funcao_comparacao);
 
   // Salva as posições ordenadas da lista rotacionada
-   int *string_rotacionada = (int *)malloc(tamanho_da_entrada*sizeof(int));
-//  static int string_rotacionada[tamanho_da_entrada];
+//  int *string_rotacionada = (int *)malloc(tamanho_da_entrada * sizeof(int));
+    static int string_rotacionada[50];
 
   for (int i = 0; i < tamanho_da_entrada; i++) {
     string_rotacionada[i] = lista_de_strings[i].posicao;
@@ -44,13 +44,16 @@ int* rotaciona_string(char* string_entrada, int tamanho_da_entrada) {
 char* burrows_wheeler(char* string_entrada) {
   // Guarda o tamanho da entrada
   int tamanho_da_entrada = strlen(string_entrada);
+//  Serial.println(string_entrada);
+//  Serial.println(tamanho_da_entrada);
 
   // Realiza as rotações da string original
   int* string_rotacionada = rotaciona_string(string_entrada, tamanho_da_entrada);
 
   // Vetor a ser preenchido com a última coluna da rotação
-   char *transformada_burrows_wheeler = (char *)malloc(tamanho_da_entrada*sizeof(char));
-//  static char transformada_burrows_wheeler[tamanho_da_entrada];
+//  char *transformada_burrows_wheeler = (char *)malloc(tamanho_da_entrada * sizeof(char));
+
+  static char transformada_burrows_wheeler[50];
 
   // Preenche o vetor anterior com o último caractere de cada rotação
   for (int i = 0; i < tamanho_da_entrada; i++) {
@@ -59,6 +62,7 @@ char* burrows_wheeler(char* string_entrada) {
       j = j + tamanho_da_entrada;
     }
     transformada_burrows_wheeler[i] = string_entrada[j];
+//    Serial.println(i);
   }
 
   // Marca o final da string
