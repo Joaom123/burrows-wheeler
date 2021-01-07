@@ -26,11 +26,14 @@
       Sistemas Embarcados 2020.2. Refatorando código para arduino uno, Professor: Elias Teodoro
   -------------------------------------------------------------
 **/
+
 #include "memoryFree.h" //para debug da memória
+
 /**
   A transformada de Burrows-Wheeler constrói uma matriz n x n onde n é o tamanho do vetor que será comprimido.
-  Esta matriz é preenchida na primeira linha com o vetor original; na segunda linha com o vetor rotacionado a esquerda de uma posição;
-  na terceira linha com o vetor rotacionado de 2 posições, e assim por diante, até termos na última linha o vetor rotacionado de n-1 posições.
+  Esta matriz é preenchida na primeira linha com o vetor original; na segunda linha com o vetor rotacionado 
+  a esquerda de uma posição; na terceira linha com o vetor rotacionado de 2 posições, e assim por diante, 
+  até termos na última linha o vetor rotacionado de n-1 posições.
   Desta nova matriz, a última coluna pode ser facilmente comprimida por técnicas de move-to-front.
 **/
 
