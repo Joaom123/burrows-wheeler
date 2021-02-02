@@ -1,7 +1,7 @@
 #include "burrow_wheeler.h" // Algoritmo de Burrow-Wheeler
-#define TAMANHO_MAXIMO_DA_ENTRADA 45
+#define TAMANHO_MAXIMO_DA_ENTRADA 60
 
-char entrada[TAMANHO_MAXIMO_DA_ENTRADA + 2]; // adiciona-se 2 por causa do $ e null terminator
+char* entrada;
 char* saida;
 unsigned long tempoAntesDaTransformada;
 unsigned long tempoDepoisDaTransformada;
@@ -10,15 +10,17 @@ unsigned long tempoDepoisDaTransformada;
 void imprime_entrada() {
   Serial.print("Texto a ser transformado: ");
   Serial.println(entrada);
+  Serial.print("O tamanho do texto é: ");
+  Serial.println(strlen(entrada) - 1); //-1 devido o null terminator
 }
 
 // Imprime o texto da saída
 void imprime_saida() {
-  Serial.print("Método de Burrows-Wheeler: ");
+  Serial.print("Saída do método de Burrows-Wheeler: ");
   Serial.println(saida);
 }
 
-// Calcula o tempo gasto e imprime-o
+// Calcula o tempo gasto e o imprime
 void calcula_e_imprime_o_tempo_gasto() {
   Serial.print("O tempo gasto pela transformada foi: ");
   Serial.print(tempoDepoisDaTransformada - tempoAntesDaTransformada);
@@ -35,18 +37,20 @@ void pega_tempo_depois_da_transformada() {
   tempoDepoisDaTransformada = millis();
 }
 
-// Pega a entrada da serial, em String, e transforma-a em array de char
+// Pega a entrada da serial, em String, e transforma-a em char*
 void pega_entrada_e_transforma_string_em_array_de_char() {
   String entradaDaSerial = Serial.readString();
-  entradaDaSerial.toCharArray(entrada, TAMANHO_MAXIMO_DA_ENTRADA);
+  entrada = (char *)malloc((entradaDaSerial.length() + 1) * sizeof(char)); //+1 pelo null terminator
+  strcpy(entrada, entradaDaSerial.c_str());
 }
 
-// Prepara a entrada para a validação de corretude
+// Prepara a entrada para a validação de corretude,
+// concatenando $ ao final da entrada
 void prepara_entrada() {
-  strcat(entrada, "$"); // concatena $ ao final da entrada
+  strcat(entrada, "$");
 }
 
-// Guarda o resultado da transformada de burrows-wheeler
+// Faz a transformada de burrows-wheeler e guarda o resultado
 void transformada_burrows_wheeler() {
   saida = burrows_wheeler(entrada);
 }
@@ -59,7 +63,7 @@ void imprime_validacao_do_tamanho_da_entrada() {
 }
 
 // Retorna true quando a entrada tem mais caracteres que o permitido
-bool entrada_eh_maior_que_o_permitido() {
+bool entrada_maior_que_o_permitido() {
   return strlen(entrada) > TAMANHO_MAXIMO_DA_ENTRADA;
 }
 
@@ -71,14 +75,13 @@ void loop() {
   if (Serial.available() > 0) {
     pega_entrada_e_transforma_string_em_array_de_char();
     prepara_entrada();
-    imprime_entrada();
-    
-    if (entrada_eh_maior_que_o_permitido()) {
+
+    if (entrada_maior_que_o_permitido()) {
       imprime_validacao_do_tamanho_da_entrada();
       return;
     }
 
-//    Serial.println(strlen(entrada));
+    imprime_entrada();
     pega_tempo_antes_da_transformada();
     transformada_burrows_wheeler();
     pega_tempo_depois_da_transformada();
