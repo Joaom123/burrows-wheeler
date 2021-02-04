@@ -78,6 +78,9 @@ void burrows_wheeler() {
     }
 }
 
+unsigned long tempoAntesDaTransformada, tempoDepoisDaTransformada;
+
+
 void loop() {
   if(Serial.available() > 0){
     (Serial.readStringUntil('\n')).toCharArray(string_entrada, TAMANHO_MAXIMO_DA_ENTRADA + 1);
@@ -91,8 +94,11 @@ void loop() {
       Serial.print("Texto a ser tranformado: ");
       Serial.println(string_entrada);
       Serial.print("Método de Burrows-Wheeler: ");
+      tempoAntesDaTransformada = micros();
       burrows_wheeler();
+      tempoDepoisDaTransformada = micros();
       Serial.println(string_rotacionada);
+      Serial.println(tempoDepoisDaTransformada - tempoAntesDaTransformada);
     }
   }
 }
