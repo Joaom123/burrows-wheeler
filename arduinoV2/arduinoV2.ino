@@ -1,29 +1,31 @@
+#define TAMANHO_MAXIMO_DA_ENTRADA 36
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
 }
 
-String recebi;
-char string_entrada[35];
+//String recebi;
+char string_entrada[TAMANHO_MAXIMO_DA_ENTRADA];
 
 //vetor temporário que armazena o deslocamentos
-static char tmp[35] = "";
+static char tmp[TAMANHO_MAXIMO_DA_ENTRADA] = "";
 // string de copia para não afetar a original
-static char copia[35] = "";
+static char copia[TAMANHO_MAXIMO_DA_ENTRADA] = "";
 
 // Struct definida para guardar as informações de índice e texto rotacionado
 struct string_com_posicao {
     int posicao;
-    char string_rotacionada[35];
+    char string_rotacionada[TAMANHO_MAXIMO_DA_ENTRADA];
 };
 
 // Vetor que armazenará cada linha rotacionada da string e suas posições originais
 // Espaço alocado de 3525 chars, pois é um vetor de string, ou seja,
-// Cada string contem 45 chars, e o vetor possui 45 strings.
-struct string_com_posicao lista_de_strings[35];
+// Cada string contem 35 chars, e o vetor possui 35 strings.
+struct string_com_posicao lista_de_strings[TAMANHO_MAXIMO_DA_ENTRADA];
 
 // Salva as posições ordenadas da lista rotacionada
-static char string_rotacionada[35];
+static char string_rotacionada[TAMANHO_MAXIMO_DA_ENTRADA];
 
 int len, new_idx;
 int i = 0, j = 0, k = 0;
@@ -31,7 +33,7 @@ int i = 0, j = 0, k = 0;
 char* desloca_posicao(char* string, int quantidade)
 {
     strcpy(copia, string);
-    strcpy(tmp, strdup(copia));
+    strcpy(tmp, copia);
     len = strlen(copia);
     if (quantidade < 0)
         quantidade = len + (quantidade % len);
@@ -84,15 +86,14 @@ char* burrows_wheeler(char* string_entrada) {
 }*/
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  //Serial.println("Olá");
   if(Serial.available() > 0){
-    recebi = "";
-    recebi = Serial.readStringUntil('\n');
-    if(recebi.length() > 33){
-      Serial.println("Máximo de 33 caracteres!");
+    (Serial.readStringUntil('\n')).toCharArray(string_entrada, TAMANHO_MAXIMO_DA_ENTRADA + 1);
+    // -2 Por conta do $ e do \0
+    if(strlen(string_entrada) > TAMANHO_MAXIMO_DA_ENTRADA - 2){
+      Serial.print("Máximo de ");
+      Serial.print(TAMANHO_MAXIMO_DA_ENTRADA - 2);
+      Serial.println(" caracteres!");
     }else{
-      recebi.toCharArray(string_entrada, recebi.length() + 1);
       strcat(string_entrada, "$");
       Serial.print("Texto a ser tranformado: ");
       Serial.println(string_entrada);
