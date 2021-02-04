@@ -1,4 +1,4 @@
-#define TAMANHO_MAXIMO_DA_ENTRADA 36
+#define TAMANHO_MAXIMO_DA_ENTRADA 37
 
 void setup() {
   Serial.begin(9600);
@@ -83,11 +83,12 @@ unsigned long tempoAntesDaTransformada, tempoDepoisDaTransformada;
 
 void loop() {
   if(Serial.available() > 0){
-    (Serial.readStringUntil('\n')).toCharArray(string_entrada, TAMANHO_MAXIMO_DA_ENTRADA + 1);
+    memset(string_entrada, 0, sizeof(string_entrada));
+    (Serial.readBytesUntil('\n', string_entrada, TAMANHO_MAXIMO_DA_ENTRADA));//.toCharArray(string_entrada, TAMANHO_MAXIMO_DA_ENTRADA + 1);
     // -2 Por conta do $ e do \0
     if(strlen(string_entrada) > TAMANHO_MAXIMO_DA_ENTRADA - 2){
       Serial.print("Máximo de ");
-      Serial.print(TAMANHO_MAXIMO_DA_ENTRADA - 2);
+      Serial.print(TAMANHO_MAXIMO_DA_ENTRADA);
       Serial.println(" caracteres!");
     }else{
       strcat(string_entrada, "$");
