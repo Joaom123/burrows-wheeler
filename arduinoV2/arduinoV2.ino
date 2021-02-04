@@ -1,4 +1,4 @@
-#define TAMANHO_MAXIMO_DA_ENTRADA 37
+#define TAMANHO_MAXIMO_DA_ENTRADA 36
 
 void setup() {
   Serial.begin(9600);
@@ -72,9 +72,9 @@ void burrows_wheeler() {
     // Coloca os textos de string_com_posicaos em ordem alfabética
     qsort(lista_de_strings, tamanho, sizeof(struct string_com_posicao), funcao_comparacao);
     
-    memset(string_entrada, 0, sizeof(string_rotacionada));
+    memset(string_rotacionada, 0, sizeof(string_rotacionada));
     for (k = 0; k < tamanho; k++) {
-        string_entrada[k] = lista_de_strings[k].string_rotacionada[tamanho-1];
+        string_rotacionada[k] = lista_de_strings[k].string_rotacionada[tamanho-1];
     }
 }
 
@@ -97,7 +97,7 @@ void loop() {
       tempoAntesDaTransformada = micros();
       burrows_wheeler();
       tempoDepoisDaTransformada = micros();
-      Serial.println(string_entrada);
+      Serial.println(string_rotacionada);
       Serial.println(tempoDepoisDaTransformada - tempoAntesDaTransformada);
     }
   }
