@@ -39,7 +39,7 @@
  **/
 
 // Constante que estabelece o tamanho da string de entrada
-#define TAMANHO_MAXIMO_DA_ENTRADA 35
+#define TAMANHO_MAXIMO_DA_ENTRADA 36
 
 // Vetor que armazena os dados vindos da Serial
 char string_entrada[TAMANHO_MAXIMO_DA_ENTRADA];
@@ -57,8 +57,8 @@ struct string_com_posicao {
 };
 
 // Vetor que armazenará cada linha rotacionada da string e suas posições originais
-// Espaço alocado de 1369 chars, pois é um vetor de string, ou seja,
-// Cada string contem 37 chars, e o vetor possui 37 strings.
+// Espaço alocado de 1296 chars, pois é um vetor de string, ou seja,
+// Cada string contem 36 chars, e o vetor possui 36 strings.
 struct string_com_posicao lista_de_strings[TAMANHO_MAXIMO_DA_ENTRADA];
 
 // Salva as posições ordenadas da lista rotacionada
@@ -133,7 +133,7 @@ void loop() {
     memset(string_entrada, 0, sizeof(string_entrada));
     Serial.readBytesUntil('\n', string_entrada, TAMANHO_MAXIMO_DA_ENTRADA);
 
-    if (strlen(string_entrada) > TAMANHO_MAXIMO_DA_ENTRADA - 1) { // -1 por conta do '\0'
+    if (strlen(string_entrada) > TAMANHO_MAXIMO_DA_ENTRADA - 2) { // -2 por conta do '\0' e '$', que ainda será adicionado
       Serial.print("Máximo de ");
       Serial.print(TAMANHO_MAXIMO_DA_ENTRADA);
       Serial.println(" caracteres!");
@@ -142,7 +142,7 @@ void loop() {
       Serial.print("Texto a ser tranformado: ");
       Serial.println(string_entrada);
       Serial.print("Método de Burrows-Wheeler: ");
-      burrows_wheeler(); // Execução da transformação
+      burrows_wheeler(); // Execução da transformação de burrows-wheeler
       Serial.println(string_rotacionada);
     }
   }
