@@ -39,7 +39,7 @@
  **/
 
 // Constante que estabelece o tamanho da string de entrada
-#define TAMANHO_MAXIMO_DA_ENTRADA 34
+#define TAMANHO_MAXIMO_DA_ENTRADA 35
 
 // Vetor que armazena os dados vindos da Serial
 char string_entrada[TAMANHO_MAXIMO_DA_ENTRADA];
@@ -102,7 +102,7 @@ int tamanho = 0;
 // Realiza o ciclo de rotações da string informada
 void burrows_wheeler() {
   tamanho = strlen(string_entrada);
-  
+
   // Preence o vetor string_com_posicao com as linhas rotacionadas.
   // Gera a matriz com as rotações.
   for (j = 0; j < tamanho; j++) {
