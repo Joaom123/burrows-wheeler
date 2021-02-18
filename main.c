@@ -26,16 +26,14 @@
 #include "burrows-wheeler.h"
 
 int main() {
-	// Realiza a leitura da entrada
-    char string_entrada[45];
-    printf("Digite um texto de no máximo 44 caracteres: ");
+	printf("Digite um texto de no máximo 44 caracteres: ");
     scanf("%[^\n]", string_entrada);
     // A tranformada de burrows-wheeler também funciona sem o $, porém concatemos a string original
     // devido ao nosso meio de validação, que realiza a transformada inversa utilizando o ‘$’ como EOF.
     strcat(string_entrada, "$");
     printf("Texto a ser tranformado: %s\n", string_entrada);
     // Chama o BWT, passando a entrada como parâmetro
-    char* string_saida = burrows_wheeler(string_entrada);
+    burrows_wheeler();
     // Mostra o resultado da transformada
-    printf("Método de Burrows-Wheeler: %s\n", string_saida);
+    printf("Método de Burrows-Wheeler: %s\n", string_rotacionada);
 }
