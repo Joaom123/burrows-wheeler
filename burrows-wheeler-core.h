@@ -38,6 +38,12 @@ struct string_com_posicao {
   char string_rotacionada[TAMANHO_MAXIMO_DA_ENTRADA];
 };
 
+struct string_com_posicao* posicao_a;
+struct string_com_posicao* posicao_b;
+
+// Declaração do tamanho da entrada
+int tamanho = 0;
+
 // Vetor que armazenará cada linha rotacionada da string e suas posições originais
 // Espaço alocado de 1296 chars, pois é um vetor de string, ou seja,
 // Cada string contem 36 chars, e o vetor possui 36 strings.

@@ -59,10 +59,6 @@ void desloca_posicao()
   memcpy(copia, tmp, len);
 }
 
-
-struct string_com_posicao* posicao_a;
-struct string_com_posicao* posicao_b;
-
 // Função de comparação para ordenar as string em ordem alfabética
 // Usada pelo qsort na função rotaciona_string()
 int funcao_comparacao(const void* a, const void* b) {
@@ -70,9 +66,6 @@ int funcao_comparacao(const void* a, const void* b) {
   posicao_b = (struct string_com_posicao*)b;
   return strcmp(posicao_a->string_rotacionada, posicao_b->string_rotacionada);
 }
-
-// Declaração do tamanho da entrada
-int tamanho = 0;
 
 // Realiza o ciclo de rotações da string informada
 void burrows_wheeler() {
