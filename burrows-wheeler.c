@@ -23,10 +23,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "burrows-wheeler.h"
+#include "burrows-wheeler-lib.h"
 
 int main() {
-	printf("Digite um texto de no máximo 44 caracteres: ");
+	printf("Digite um texto de no máximo %d caracteres: ", TAMANHO_MAXIMO_DA_ENTRADA);
     scanf("%[^\n]", string_entrada);
     // A tranformada de burrows-wheeler também funciona sem o $, porém concatemos a string original
     // devido ao nosso meio de validação, que realiza a transformada inversa utilizando o ‘$’ como EOF.
