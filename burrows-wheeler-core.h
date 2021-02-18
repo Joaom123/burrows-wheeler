@@ -1,5 +1,5 @@
 /*
- * @(#)burrows-wheeler.c
+ * @(#)burrows-wheeler-core.h
  *
  * Copyright 2019 by Anureet Kaur,
  * Geeks for geeks ORG
@@ -33,13 +33,23 @@ char tmp[TAMANHO_MAXIMO_DA_ENTRADA] = "";
 char copia[TAMANHO_MAXIMO_DA_ENTRADA] = "";
 
 // Struct definida para guardar as informações de índice e texto rotacionado
-struct string_com_posicao {
+struct string_com_posicao
+{
   int posicao;
   char string_rotacionada[TAMANHO_MAXIMO_DA_ENTRADA];
 };
 
-struct string_com_posicao* posicao_a;
-struct string_com_posicao* posicao_b;
+struct string_com_posicao *posicao_a;
+struct string_com_posicao *posicao_b;
+
+// Função de comparação para ordenar as string em ordem alfabética
+// Usada pelo qsort na função rotaciona_string()
+int funcao_comparacao(const void *a, const void *b)
+{
+  posicao_a = (struct string_com_posicao *)a;
+  posicao_b = (struct string_com_posicao *)b;
+  return strcmp(posicao_a->string_rotacionada, posicao_b->string_rotacionada);
+}
 
 // Declaração do tamanho da entrada
 int tamanho = 0;

@@ -23,7 +23,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "burrows-wheeler-lib.h"
+// #include "burrows-wheeler-lib.h"
+#include "burrows-wheeler-lib-otimizado.h"
 
 int main() {
 	printf("Digite um texto de no máximo %d caracteres: ", TAMANHO_MAXIMO_DA_ENTRADA);

@@ -28,6 +28,7 @@
   -------------------------------------------------------------
 **/
 #include "burrows-wheeler-lib.h"
+// #include "burrows-wheeler-lib-otimizado.h"
 
 void setup() {
   Serial.begin(9600); // Configurando para 9600 o baud rate da Serial do Arduino

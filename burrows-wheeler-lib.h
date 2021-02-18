@@ -1,5 +1,5 @@
 /*
-   @(#)burrows-wheeler.ino
+   @(#)burrows-wheeler-lib.h
 
    Copyright 2019 by Anureet Kaur,
    Geeks for geeks ORG
@@ -52,28 +52,23 @@ void desloca_posicao()
   len = strlen(copia);
   if (qtd_posicoes < 0)
     qtd_posicoes = len + (qtd_posicoes % len);
-  for (i = 0; copia[i] != 0; i++) {
+  for (i = 0; copia[i] != 0; i++)
+  {
     new_idx = (i + qtd_posicoes) % len;
     tmp[new_idx] = copia[i];
   }
   memcpy(copia, tmp, len);
 }
 
-// Função de comparação para ordenar as string em ordem alfabética
-// Usada pelo qsort na função rotaciona_string()
-int funcao_comparacao(const void* a, const void* b) {
-  posicao_a = (struct string_com_posicao*)a;
-  posicao_b = (struct string_com_posicao*)b;
-  return strcmp(posicao_a->string_rotacionada, posicao_b->string_rotacionada);
-}
-
 // Realiza o ciclo de rotações da string informada
-void burrows_wheeler() {
+void burrows_wheeler()
+{
   tamanho = strlen(string_entrada);
-  
+
   // Preence o vetor string_com_posicao com as linhas rotacionadas.
   // Gera a matriz com as rotações.
-  for (j = 0; j < tamanho; j++) {
+  for (j = 0; j < tamanho; j++)
+  {
     lista_de_strings[j].posicao = j;
     qtd_posicoes = -j;
     desloca_posicao();
@@ -87,7 +82,8 @@ void burrows_wheeler() {
   memset(string_rotacionada, 0, sizeof(string_rotacionada));
 
   // Preenche o vetor string_rotacionada com o último elemento de cada string na matriz lista_de_strings
-  for (k = 0; k < tamanho; k++) {
+  for (k = 0; k < tamanho; k++)
+  {
     string_rotacionada[k] = lista_de_strings[k].string_rotacionada[tamanho - 1];
   }
 }
