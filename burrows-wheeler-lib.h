@@ -63,11 +63,11 @@ void desloca_posicao()
 // Realiza o ciclo de rotações da string informada
 void burrows_wheeler()
 {
-  tamanho = strlen(string_entrada);
+  tamanho_da_entrada = strlen(string_entrada);
 
   // Preence o vetor string_com_posicao com as linhas rotacionadas.
   // Gera a matriz com as rotações.
-  for (j = 0; j < tamanho; j++)
+  for (j = 0; j < tamanho_da_entrada; j++)
   {
     lista_de_strings[j].posicao = j;
     qtd_posicoes = -j;
@@ -77,13 +77,13 @@ void burrows_wheeler()
 
   // Coloca os textos de string_com_posicaos em ordem alfabética.
   // Ordenação da matriz das rotações.
-  qsort(lista_de_strings, tamanho, sizeof(struct string_com_posicao), funcao_comparacao);
+  qsort(lista_de_strings, tamanho_da_entrada, sizeof(struct string_com_posicao), funcao_comparacao);
 
   memset(string_rotacionada, 0, sizeof(string_rotacionada));
 
   // Preenche o vetor string_rotacionada com o último elemento de cada string na matriz lista_de_strings
-  for (k = 0; k < tamanho; k++)
+  for (k = 0; k < tamanho_da_entrada; k++)
   {
-    string_rotacionada[k] = lista_de_strings[k].string_rotacionada[tamanho - 1];
+    string_rotacionada[k] = lista_de_strings[k].string_rotacionada[tamanho_da_entrada - 1];
   }
 }

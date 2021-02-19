@@ -40,25 +40,25 @@ Desta nova matriz, a última coluna pode ser facilmente comprimida por técnicas
 int *rotaciona_string(char *string_entrada)
 {
   // Preence o vetor string_com_posicao com as linhas rotacionadas
-  for (int i = 0; i < tamanho; i++)
+  for (int i = 0; i < tamanho_da_entrada; i++)
   {
     lista_de_strings[i].posicao = i;
     strcpy(lista_de_strings[i].string_rotacionada, (string_entrada + i));
   }
 
   // Coloca os textos de string_com_posicaos em ordem alfabética
-  qsort(lista_de_strings, tamanho, sizeof(struct string_com_posicao), funcao_comparacao);
+  qsort(lista_de_strings, tamanho_da_entrada, sizeof(struct string_com_posicao), funcao_comparacao);
 
   // Salva as posições ordenadas da lista rotacionada
-  int *string_rotacionada_a = (int *)malloc(tamanho*sizeof(int));
+  int *string_rotacionada_a = (int *)malloc(tamanho_da_entrada*sizeof(int));
 
-  for (int i = 0; i < tamanho; i++)
+  for (int i = 0; i < tamanho_da_entrada; i++)
   {
     string_rotacionada_a[i] = lista_de_strings[i].posicao;
   }
 
   // Marca o final da string
-  string_rotacionada_a[tamanho] = '\0';
+  string_rotacionada_a[tamanho_da_entrada] = '\0';
 
   return string_rotacionada_a;
 }
@@ -67,27 +67,27 @@ int *rotaciona_string(char *string_entrada)
 void burrows_wheeler()
 {
   // Guarda o tamanho da entrada
-  tamanho = strlen(string_entrada);
+  tamanho_da_entrada = strlen(string_entrada);
 
   // Realiza as rotações da string original
   int *string_rotacionada_a = rotaciona_string(string_entrada);
 
   // Vetor a ser preenchido com a última coluna da rotação
-  char *transformada_burrows_wheeler = (char *)malloc(tamanho * sizeof(char));
+  char *transformada_burrows_wheeler = (char *)malloc(tamanho_da_entrada * sizeof(char));
 
   // Preenche o vetor anterior com o último caractere de cada rotação
-  for (int i = 0; i < tamanho; i++)
+  for (int i = 0; i < tamanho_da_entrada; i++)
   {
     int j = string_rotacionada_a[i] - 1;
     if (j < 0)
     {
-      j = j + tamanho;
+      j = j + tamanho_da_entrada;
     }
     transformada_burrows_wheeler[i] = string_entrada[j];
   }
 
   // Marca o final da string
-  transformada_burrows_wheeler[tamanho] = '\0';
+  transformada_burrows_wheeler[tamanho_da_entrada] = '\0';
 
   strcpy(string_rotacionada, transformada_burrows_wheeler);
 }

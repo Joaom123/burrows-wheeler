@@ -52,7 +52,7 @@ int funcao_comparacao(const void *a, const void *b)
 }
 
 // Declaração do tamanho da entrada
-int tamanho = 0;
+int tamanho_da_entrada = 0;
 
 // Vetor que armazenará cada linha rotacionada da string e suas posições originais
 // Espaço alocado de 1296 chars, pois é um vetor de string, ou seja,
