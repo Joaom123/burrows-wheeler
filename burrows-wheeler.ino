@@ -29,6 +29,7 @@
 **/
 #include "burrows-wheeler-lib.h"
 // #include "burrows-wheeler-lib-otimizado.h"
+#include "medicoes_arduino.h"
 
 void setup() {
   Serial.begin(9600); // Configurando para 9600 o baud rate da Serial do Arduino
@@ -48,8 +49,13 @@ void loop() {
       Serial.print("Texto a ser tranformado: ");
       Serial.println(string_entrada);
       Serial.print("Método de Burrows-Wheeler: ");
+
+      pega_tempo_antes_da_execucao();
       burrows_wheeler(); // Execução da transformação
+      pega_tempo_depois_da_execucao();
+
       Serial.println(string_rotacionada);
+      calcula_e_exibe_duracao();
     }
   }
 }
