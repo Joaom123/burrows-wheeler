@@ -23,9 +23,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-// #include "burrows-wheeler-lib.h"
-#include "burrows-wheeler-lib-otimizado.h"
-#include "medicoes.h"
+#include "burrows-wheeler-lib.h"
+// #include "burrows-wheeler-lib-otimizado.h"
+#include "medicoes_c.h"
 
 int main()
 {
@@ -41,5 +41,6 @@ int main()
     pega_tempo_depois_da_execucao();
 
     printf("Método de Burrows-Wheeler: %s\n", string_rotacionada);
+    pega_tamanho_memoria();
     calcula_e_exibe_duracao();
 }
