@@ -4,7 +4,6 @@
 // 	- Tamanho da memória de dados utilizada pela aplicação
 
 #include <stdio.h>
-#include <time.h>
 
 unsigned long tempo_inicial;
 unsigned long tempo_final;
