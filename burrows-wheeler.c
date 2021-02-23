@@ -23,8 +23,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "bwt-arduino/burrows-wheeler-lib.h"
-// #include "bwt-arduino/burrows-wheeler-lib-otimizado.h"
+// #include "bwt-arduino/burrows-wheeler-restrito.h"
+#include "burrows-wheeler-otimizado.h"
 #include "medicoes_c.h"
 
 int main()

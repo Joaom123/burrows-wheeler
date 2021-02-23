@@ -27,8 +27,7 @@
   --  Adaptação realizada para migrar o código .c para o microcontrolador Arduino UNO
   -------------------------------------------------------------
 **/
-#include "burrows-wheeler-lib.h"
-// #include "burrows-wheeler-lib-otimizado.h"
+#include "burrows-wheeler-restrito.h"
 #include "medicoes_arduino.h"
 
 void setup() {
