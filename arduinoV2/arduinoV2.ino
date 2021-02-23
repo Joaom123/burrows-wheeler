@@ -128,6 +128,8 @@ void setup() {
   Serial.begin(9600); // Configurando para 9600 o baud rate da Serial do Arduino
 }
 
+unsigned long inicio, fim;
+
 void loop() {
   if (Serial.available() > 0) {
     memset(string_entrada, 0, sizeof(string_entrada));
@@ -142,7 +144,11 @@ void loop() {
       Serial.print("Texto a ser tranformado: ");
       Serial.println(string_entrada);
       Serial.print("Método de Burrows-Wheeler: ");
+      inicio = micros();
       burrows_wheeler(); // Execução da transformação
+      fim = micros();
+      Serial.print("Microssegundo para a execução: ");
+      Serial.println(fim - inicio);
       Serial.println(string_rotacionada);
     }
   }
