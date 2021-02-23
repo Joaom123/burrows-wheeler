@@ -4,26 +4,26 @@
 // 	- Tamanho da memória de dados utilizada pela aplicação
 
 #include <stdio.h>
-#include <time.h>
+#include <sys/time.h>
 #include <unistd.h>
 #include <sys/resource.h>
 
-unsigned long tempo_inicial;
-unsigned long tempo_final;
+struct timeval tempo_inicial;
+struct timeval tempo_final;
 
 void pega_tempo_antes_da_execucao()
 {
-  tempo_inicial = clock();
+  gettimeofday(&tempo_inicial, NULL);
 }
 
 void pega_tempo_depois_da_execucao()
 {
-  tempo_final = clock();
+  gettimeofday(&tempo_final, NULL);
 }
 
 void calcula_e_exibe_duracao()
 {
-  printf("Tempo da execução foi: %ld\n", tempo_final - tempo_inicial);
+  printf("Tempo da execução foi: %ld\n", (tempo_final.tv_sec - tempo_inicial.tv_sec) * 1000000 + tempo_final.tv_usec - tempo_inicial.tv_usec);
 }
 
 void pega_tamanho_memoria()

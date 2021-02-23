@@ -41,6 +41,6 @@ int main()
     pega_tempo_depois_da_execucao();
 
     printf("Método de Burrows-Wheeler: %s\n", string_rotacionada);
-    pega_tamanho_memoria();
+    // pega_tamanho_memoria();
     calcula_e_exibe_duracao();
 }
