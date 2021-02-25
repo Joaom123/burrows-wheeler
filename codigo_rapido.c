@@ -120,12 +120,7 @@ char *burrows_wheeler()
     // Preenche o vetor anterior com o último caractere de cada rotação
     for (i = 0; i < tamanho_da_entrada; i++)
     {
-        j = string_rotacionada[i] - 1;
-        if (j < 0)
-        {
-            j = j + tamanho_da_entrada;
-        }
-        transformada_burrows_wheeler[i] = string_entrada[j];
+        transformada_burrows_wheeler[i] = string_entrada[(string_rotacionada[i] - 1 + tamanho_da_entrada) % tamanho_da_entrada];
     }
 
     // Marca o final da string
